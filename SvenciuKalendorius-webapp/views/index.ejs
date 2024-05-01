@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--Serif-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <!--Sans-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <title>Atostogų kalendorius</title>
+</head>
+<body>
+    <div class="main">
+        <div>
+            <% if(locals.year) {%>
+                <h1><%= year %> metų atostogų dienos</h1>
+            <%} else {%>
+                <h1>Pasirinktų metų atostogų dienos</h1>
+            <%}%>
+            <form action="/dates" method="POST">
+                <label>Įrašykite metus:</label>
+                <% if(locals.year){%>
+                <input type="number" min="1974" max="2074" value="<%= year %>" required autofocus name="year">
+                <%} else {%>
+                    <input type="number" min="1974" max="2074" required autofocus name="year">
+                <%}%>
+                <button type="submit">OK</button>
+            </form>
+        </div>
+        <% if(locals.result) {%>
+        <div class="data">
+            <ul>
+                <% result.forEach((result) => {%>
+                    <li><span><%= result.date %></span> „<%= result.localName %>“</li>
+                <%});%>
+            </ul>
+        </div>
+        <%}%>
+    </div>
+    <footer>©<%= new Date().getFullYear() %> Antanas Jasiulionis</footer>
+</body>
+</html>
